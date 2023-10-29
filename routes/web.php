@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Controllers\AttendaceController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +18,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Auth::routes([
+    'login' => false,
+    'register' => false,
+]);
+
+Route::get('/', [LoginController::class, 'showLoginForm']);
+Route::post('/', [LoginController::class, 'login'])->name('login');
+
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+Route::get('/presensi', [AttendaceController::class, 'index']);
+Route::post('presensi/store', [AttendaceController::class, 'store']);
+
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
