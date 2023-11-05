@@ -1,8 +1,7 @@
 <?php
 
-use App\Http\Controllers\AttendaceController;
+use App\Http\Controllers\Attendance\AttendanceController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -24,13 +23,17 @@ Auth::routes([
 ]);
 
 Route::get('/', [LoginController::class, 'showLoginForm']);
-Route::post('/', [LoginController::class, 'login'])->name('login');
+Route::post('/login', [LoginController::class, 'login'])->name('login');
 
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-Route::get('/presensi', [AttendaceController::class, 'index']);
-Route::post('presensi/store', [AttendaceController::class, 'store']);
+
+Route::middleware(['role:user'])->group(function() {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/presensi', [AttendanceController::class, 'create']);
+    Route::post('presensi/store', [AttendanceController::class, 'store']);
+    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+});
 
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

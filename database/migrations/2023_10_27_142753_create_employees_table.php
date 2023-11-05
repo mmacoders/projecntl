@@ -12,11 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('employees', function (Blueprint $table) {
-            $table->string('id', 25)->primary();
-            $table->string('nama_lengkap', 100);
-            $table->string('jabatan');
-            $table->string('tempat_tanggal_lahir', 50);
-            $table->string('jenis_kelamin', 50);
+            $table->string('nik', 25)->primary();
+            $table->string('fullname', 100);
+            $table->string('position', 50);
+            $table->string('gender', 25);
+            // $table->unsignedBigInteger('user_id');
+            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -26,6 +27,9 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('employees', function(Blueprint $table) {
+            $table->dropForeign(['user_id']);
+        });
         Schema::dropIfExists('employees');
     }
 };

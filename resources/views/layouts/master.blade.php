@@ -13,6 +13,7 @@
     <link rel="icon" type="image/png"  href="{{ asset('assets/img/favicon.ico') }}" sizes="32x32">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/img/icon/192x192.png') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
     crossorigin=""/>
@@ -20,24 +21,12 @@
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
     crossorigin=""></script>
     <link rel="manifest" href="__manifest.json">
-    <style>
-        /* #my_camera, #my_camera video {
-            display: inline-block;
-            width: 100% !important;
-            margin: auto;
-            height: auto !important;
-            border-radius: 15px;
-        } */
-        #map {
-            height: 180px;
-        }
-    </style>
 </head>
 <body style="background-color:#e9ecef;">
 
     @include('partials.loader')
 
-    @yield('header')
+    @yield('master.header')
 
     <!-- App Capsule -->
     <div id="appCapsule">
@@ -101,7 +90,7 @@
         }); // end am4core.ready()
     </script>
 
-    @stack('script-webcam')
+    @stack('webcam-script')
 
 </body>
 </html>

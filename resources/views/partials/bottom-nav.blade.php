@@ -1,12 +1,12 @@
 <!-- App Bottom Menu -->
 <div class="appBottomMenu">
-    <a href="#" class="item">
+    <a href="{{ route('dashboard') }}" class="item {{ Request::is('dashboard') ? 'active' : '' }}">
         <div class="col">
             <ion-icon name="home-outline"></ion-icon>
             <strong>Home</strong>
         </div>
     </a>
-    <a href="#" class="item active">
+    <a href="#" class="item">
         <div class="col">
             <ion-icon name="calendar-outline" role="img" class="md hydrated"
                 aria-label="calendar outline"></ion-icon>

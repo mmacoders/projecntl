@@ -2,32 +2,24 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class Employee extends Model
 {
-    use HasApiTokens, HasFactory, Notifiable;
-
-    // protected $primaryKey = 'id';
 
     protected $fillable = [
-        'id',
-        'username',
-        'nama_lengkap',
-        'jabatan',
-        'password'
+        'nik',
+        'fullname',
+        'position',
+        'gender',
+        'user_id'
     ];
 
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    // public function user() {
+    //     return $this->belongsTo(User::class);
+    // }
 
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
-    ];
+    // public function attendance() {
+    //     return $this->hasOne(Attendance::class);
+    // }
 }

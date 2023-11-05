@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('salaries', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('jabatans_id');
-            $table->foreign('jabatans_id')->references('id')->on('jabatans')->onDelete('cascade');
+            $table->unsignedBigInteger('position_id');
+            $table->foreign('position_id')->references('id')->on('positions')->onDelete('cascade');
             $table->decimal('salary');
             $table->timestamps();
         });

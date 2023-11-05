@@ -13,16 +13,16 @@ return new class extends Migration
     {
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('tanggal_presensi');
-            $table->time('jam_in');
-            $table->time('jam_out');
-            $table->string('gambar_in');
-            $table->string('gambar_out');
+            $table->timestamp('attend_date');
+            $table->time('check_in');
+            $table->time('check_out')->nullable();
+            $table->string('photo_in');
+            $table->string('photo_out')->nullable();
             $table->string('location_in');
-            $table->string('location_out');
-            $table->string('keterangan', 50);
-            $table->string('employees_id', 25);
-            $table->foreign('employees_id')->references('id')->on('employees')->onDelete('cascade');
+            $table->string('location_out')->nullable();
+            // $table->string('keterangan', 50);
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

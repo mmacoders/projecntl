@@ -10,6 +10,13 @@
         <h4>Masuk ke akun Anda</h4>
     </div>
     <div class="section mt-1 mb-5">
+
+        @if(session()->has('loginError'))
+            <div class="alert alert-outline-warning">
+                {{ session('loginError') }}
+            </div>
+        @endif
+
         <form action="{{ route('login') }}" method="POST">
             @csrf
             <div class="form-group boxed">

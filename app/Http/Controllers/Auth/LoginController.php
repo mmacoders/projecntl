@@ -42,16 +42,17 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        //
 
-        dd($user->hasRole('admin'));
-        
+        if($user->hasRole('user')) {
+            return redirect()->route('dashboard');
+        } else {
+            return redirect('/')->back()->with('loginError', 'Username/Password yang Anda masukkan salah. Silahkan periksa kembali');
+        }
+
         if($user->hasRole('admin')) {
             // return to dashboard admin
             return 'halo';
         }
-
-        return redirect()->route('dashboard');
     }
 
 }
