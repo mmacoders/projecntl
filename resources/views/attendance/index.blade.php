@@ -52,15 +52,17 @@
     }
 
     function showLocation(position) {
-        lokasi.value = position.coords.latitude + "," + position.coords.longitude;
-        let map = L.map('map').setView([position.coords.latitude, position.coords.longitude], 13);
+        let latitude = position.coords.latitude;
+        let longitude = position.coords.longitude;
+        lokasi.value = `${latitude},${longitude}`;
+        let map = L.map('map').setView([latitude, longitude], 13);
         
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
 
-        let marker = L.marker([position.coords.latitude, position.coords.longitude]).addTo(map)
+        let marker = L.marker([latitude, longitude]).addTo(map)
     }
 
     function errLocation() {}
@@ -75,8 +77,8 @@
             url: '/presensi/store',
             data: {
                 _token: "{{ csrf_token() }}",
-                image: image,
-                location: location,
+                img: image,
+                loc: location,
             },
             success: function(response) {
                 let status = response.split('|');

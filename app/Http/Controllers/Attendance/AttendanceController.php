@@ -24,16 +24,16 @@ class AttendanceController extends Controller
 
         $isAttend = DB::table('attendances')->where('attend_date', $attendDate)->where('user_id', $employeeId)->count();
 
-        if($isAttend) {
+        if($isAttend > 0) {
             $note = 'out';
         } else {
             $note = 'in';
         }
 
-        $location = $request->location;
-        $image = $request->image;
+        $image = $request->img;
+        $location = $request->loc;
         
-        $folderPath = 'public/uploads/absensi';
+        $folderPath = 'public/uploads/absensi/';
         $formatName = $attendDate. '-'. $note;
         
         $imageParts = explode(';base64', $image);

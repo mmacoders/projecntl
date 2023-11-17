@@ -8,3 +8,7 @@
 #map {
     height: 180px;
 }
+
+html {
+    scroll-behavior: smooth;
+  }
