@@ -11,4 +11,38 @@
 
 html {
     scroll-behavior: smooth;
-  }
+}
+
+.card-rekap-presence {
+    padding: 12px 12px !important;
+    line-height: 0.8rem;
+}
+
+.badge-rekap-presence {
+    position: absolute;
+    top: 3px;
+    right: 10px;
+    font-size: 0.6rem;
+    z-index: 500;
+}
+
+.icon-rekap-presence {
+    font-size: 1.6rem;
+}
+
+.txt-rekap-presence {
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.history-content {
+    margin-top: 70px;
+}
+
+.datepicker-modal {
+    max-height: 430px !important;
+}
+
+.datepicker-date-display {
+    background-color: #0f3a7e !important;
+}

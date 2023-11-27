@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.master-user')
 @section('content')
 <div class="section" id="user-section">
     {{-- <a href="{{ route('logout') }}" >
@@ -22,7 +22,7 @@
                 <div class="item-menu text-center">
                     <div class="menu-icon">
                         <a href="" class="green" style="font-size: 40px;">
-                            <ion-icon name="person-sharp"></ion-icon>
+                            <ion-icon name="person"></ion-icon>
                         </a>
                     </div>
                     <div class="menu-name">
@@ -32,11 +32,11 @@
                 <div class="item-menu text-center">
                     <div class="menu-icon">
                         <a href="" class="danger" style="font-size: 40px;">
-                            <ion-icon name="calendar-number"></ion-icon>
+                            <ion-icon name="calendar"></ion-icon>
                         </a>
                     </div>
                     <div class="menu-name">
-                        <span class="text-center">Cuti</span>
+                        <span class="text-center">Izin</span>
                     </div>
                 </div>
                 <div class="item-menu text-center">
@@ -46,7 +46,7 @@
                         </a>
                     </div>
                     <div class="menu-name">
-                        <span class="text-center">Histori</span>
+                        <span class="text-center">Riwayat</span>
                     </div>
                 </div>
                 <div class="item-menu text-center">
@@ -75,7 +75,7 @@
                                     @php
                                         $path = Storage::url('uploads/absensi/' . $attendance->photo_in);
                                     @endphp
-                                    <img src="{{ url($path) }}" alt="" class="imaged w64">
+                                    <img src="{{ url($path) }}" alt="" class="imaged w48">
                                 @else
                                     <ion-icon name="camera"></ion-icon>
                                 @endif
@@ -97,16 +97,62 @@
                                 @php
                                     $path = Storage::url('uploads/absensi/' . $attendance->photo_out);
                                 @endphp
-                                <img src="{{ url($path) }}" alt="" class="imaged w-64">
-                            @else
-                                <ion-icon name="camera"></ion-icon>
-                            @endif
+                                    <img src="{{ url($path) }}" alt="" class="imaged w48">
+                                @else
+                                    <ion-icon name="camera"></ion-icon>
+                                @endif
                             </div>
                             <div class="presencedetail">
                                 <h4 class="presencetitle">Pulang</h4>
                                 <span>{{ $attendance != null && $attendance->check_out != null ? $attendance->check_out : 'Belum absen' }}</span>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="rekap-presence">
+        <h3>Rekap presensi Januari 2023</h3>
+        <div class="row">
+            <div class="col-3">
+                <div class="card">
+                    <div class="card-body text-center card-rekap-presence">
+                        <span class="badge bg-danger badge-rekap-presence">{{ $rekapAttendance->jmlh_hadir }}</span>
+                        <ion-icon name="checkmark-circle-outline" class="text-success mb-1 icon-rekap-presence"></ion-icon>
+                        <br>
+                        <span class="txt-rekap-presence">Hadir</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card">
+                    <div class="card-body text-center card-rekap-presence">
+                        <span class="badge bg-danger badge-rekap-presence">{{ $rekapAttendance->jmlh_terlambat }}</span>
+                        <ion-icon name="timer-outline" class="text-warning mb-1 icon-rekap-presence"></ion-icon>
+                        <br>
+                        <span class="txt-rekap-presence">Terlambat</span>
+                    </div>
+                </div>
+        </div>
+            <div class="col-3">
+                <div class="card">
+                    <div class="card-body text-center card-rekap-presence">
+                        <span class="badge bg-danger badge-rekap-presence">{{ $rekapIzin->jmlh_izin }}</span>
+                        <ion-icon name="close-circle-outline" class="text-primary mb-1 icon-rekap-presence"></ion-icon>
+                        <br>
+                        <span class="txt-rekap-presence">Izin</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card">
+                    <div class="card-body text-center card-rekap-presence">
+                        <span class="badge bg-danger badge-rekap-presence">{{ $rekapIzin->jmlh_sakit }}</span>
+                        <ion-icon name="medkit-outline" class="text-danger mb-1 icon-rekap-presence"></ion-icon>
+                        <br>
+                        <span class="txt-rekap-presence">Sakit</span>
                     </div>
                 </div>
             </div>
@@ -149,51 +195,24 @@
             </div>
             <div class="tab-pane fade" id="profile" role="tabpanel">
                 <ul class="listview image-listview">
+                    @foreach ($leaderboard as $lb)
                     <li>
                         <div class="item">
                             <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
                             <div class="in">
-                                <div>Edward Lindgren</div>
-                                <span class="text-muted">Designer</span>
+                                <div>
+                                    <b>{{ $lb->username }}</b><br>
+                                    <small class="text-muted">Jabatan</small>
+                                </div>
+                                <span class="badge {{ $lb->check_in < '07:00' ? 'bg-succes' : 'bg-danger' }}">
+                                    {{ $lb->check_in }}
+                                </span>
                             </div>
                         </div>
                     </li>
-                    <li>
-                        <div class="item">
-                            <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
-                            <div class="in">
-                                <div>Emelda Scandroot</div>
-                                <span class="badge badge-primary">3</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item">
-                            <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
-                            <div class="in">
-                                <div>Henry Bove</div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item">
-                            <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
-                            <div class="in">
-                                <div>Henry Bove</div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item">
-                            <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
-                            <div class="in">
-                                <div>Henry Bove</div>
-                            </div>
-                        </div>
-                    </li>
+                    @endforeach
                 </ul>
             </div>
-
         </div>
     </div>
 </div>

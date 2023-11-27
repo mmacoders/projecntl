@@ -45,8 +45,6 @@ class LoginController extends Controller
 
         if($user->hasRole('user')) {
             return redirect()->route('dashboard');
-        } else {
-            return redirect('/')->back()->with('loginError', 'Username/Password yang Anda masukkan salah. Silahkan periksa kembali');
         }
 
         if($user->hasRole('admin')) {

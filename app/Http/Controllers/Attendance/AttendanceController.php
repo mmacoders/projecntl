@@ -18,11 +18,11 @@ class AttendanceController extends Controller
 
     public function store(Request $request) {
         
-        $employeeId = auth()->user()->id;
+        // $employeeId = auth()->user()->id;
         $attendDate = date('Y-m-d');
         $hour = date('H:i:s');
 
-        $isAttend = DB::table('attendances')->where('attend_date', $attendDate)->where('user_id', $employeeId)->count();
+        $isAttend = DB::table('attendances')->where('attend_date', $attendDate)->where('user_id', 2)->count();
 
         if($isAttend > 0) {
             $note = 'out';
@@ -49,7 +49,7 @@ class AttendanceController extends Controller
                 'photo_out' => $fileName,
                 'location_out' => $location,
             ];
-            $update = DB::table('attendances')->where('attend_date', $attendDate)->where('user_id', $employeeId)->update($checkOut);
+            $update = DB::table('attendances')->where('attend_date', $attendDate)->where('user_id', 2)->update($checkOut);
 
             if($update) {
                 echo 'success|Anda telah melakukan absensi pulang';
@@ -59,7 +59,7 @@ class AttendanceController extends Controller
             }
         } else {
             $checkIn = [
-                'user_id' => $employeeId,
+                'user_id' => 2,
                 'attend_date' => $attendDate,
                 'check_in' => $hour,
                 'photo_in' => $fileName,
