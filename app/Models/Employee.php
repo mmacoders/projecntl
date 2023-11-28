@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Employee extends Model
 {
-
     protected $fillable = [
         'nik',
         'fullname',
@@ -15,11 +14,11 @@ class Employee extends Model
         'user_id'
     ];
 
-    // public function user() {
-    //     return $this->belongsTo(User::class);
-    // }
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
 
-    // public function attendance() {
-    //     return $this->hasOne(Attendance::class);
-    // }
+    public function attendance() {
+        return $this->hasOne(Attendance::class);
+    }
 }

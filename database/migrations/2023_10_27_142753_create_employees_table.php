@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('fullname', 100);
             $table->string('position', 50);
             $table->string('gender', 25);
-            // $table->unsignedBigInteger('user_id');
-            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

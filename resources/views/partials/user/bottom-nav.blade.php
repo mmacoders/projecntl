@@ -8,11 +8,11 @@
     </a>
     <a href="{{ route('pengajuan-izin') }}" class="item {{ Request::is('presensi/pengajuan-izin') ? 'active' : '' }}">
         <div class="col">
-            <ion-icon name="calendar-outline"></ion-icon>
+            <ion-icon name="calendar-number-outline"></ion-icon>
             <strong>Izin</strong>
         </div>
     </a>
-    <a href="{{ route('presensi.create') }}" class="item {{ Request::is('presensi') ? 'active' : '' }}">
+    <a href="{{ route('presensi.create') }}" class="item">
         <div class="col">
             <div class="action-button large">
                 <ion-icon name="camera" role="img" class="md hydrated" aria-label="add outline"></ion-icon>

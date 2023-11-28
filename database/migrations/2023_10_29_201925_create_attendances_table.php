@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('location_in');
             $table->string('location_out')->nullable();
             // $table->string('keterangan', 50);
+            // $table->string('employee_id');
+            // $table->foreign('employee_id')->references('nik')->on('employees')->onDelete('cascade');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

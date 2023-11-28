@@ -17,11 +17,12 @@ class HistoryController extends Controller
     public function search(Request $request) {
         $month = $request->month;
         $year = $request->year;
+        $employeeId = auth()->user()->id;
 
         $history = DB::table('attendances')
         ->whereRaw('MONTH(attend_date)="'. $month . '"')
         ->whereRaw('YEAR(attend_date)="' . $year . '"')
-        ->where('user_id', 2)
+        ->where('user_id', $employeeId)
         ->orderBy('attend_date')
         ->get();
 

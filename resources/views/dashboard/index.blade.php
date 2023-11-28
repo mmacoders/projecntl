@@ -32,7 +32,7 @@
                 <div class="item-menu text-center">
                     <div class="menu-icon">
                         <a href="" class="danger" style="font-size: 40px;">
-                            <ion-icon name="calendar"></ion-icon>
+                            <ion-icon name="calendar-number-outline"></ion-icon>
                         </a>
                     </div>
                     <div class="menu-name">
@@ -120,7 +120,7 @@
                 <div class="card">
                     <div class="card-body text-center card-rekap-presence">
                         <span class="badge bg-danger badge-rekap-presence">{{ $rekapAttendance->jmlh_hadir }}</span>
-                        <ion-icon name="checkmark-circle-outline" class="text-success mb-1 icon-rekap-presence"></ion-icon>
+                        <ion-icon name="finger-print-outline" class="text-success mb-1 icon-rekap-presence"></ion-icon>
                         <br>
                         <span class="txt-rekap-presence">Hadir</span>
                     </div>
@@ -130,7 +130,7 @@
                 <div class="card">
                     <div class="card-body text-center card-rekap-presence">
                         <span class="badge bg-danger badge-rekap-presence">{{ $rekapAttendance->jmlh_terlambat }}</span>
-                        <ion-icon name="timer-outline" class="text-warning mb-1 icon-rekap-presence"></ion-icon>
+                        <ion-icon name="timer-outline" class="text-danger mb-1 icon-rekap-presence"></ion-icon>
                         <br>
                         <span class="txt-rekap-presence">Terlambat</span>
                     </div>
@@ -140,7 +140,7 @@
                 <div class="card">
                     <div class="card-body text-center card-rekap-presence">
                         <span class="badge bg-danger badge-rekap-presence">{{ $rekapIzin->jmlh_izin }}</span>
-                        <ion-icon name="close-circle-outline" class="text-primary mb-1 icon-rekap-presence"></ion-icon>
+                        <ion-icon name="calendar-number-outline" class="text-info mb-1 icon-rekap-presence"></ion-icon>
                         <br>
                         <span class="txt-rekap-presence">Izin</span>
                     </div>
@@ -150,7 +150,7 @@
                 <div class="card">
                     <div class="card-body text-center card-rekap-presence">
                         <span class="badge bg-danger badge-rekap-presence">{{ $rekapIzin->jmlh_sakit }}</span>
-                        <ion-icon name="medkit-outline" class="text-danger mb-1 icon-rekap-presence"></ion-icon>
+                        <ion-icon name="medkit-outline" class="text-warning mb-1 icon-rekap-presence"></ion-icon>
                         <br>
                         <span class="txt-rekap-presence">Sakit</span>
                     </div>

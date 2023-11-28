@@ -18,8 +18,9 @@ class IzinController extends Controller
     }
 
     public function create() {
+        $employeeId = auth()->user()->id;
         $dataIzin = DB::table('pengajuan_izin')
-        ->where('user_id', 2)
+        ->where('user_id', $employeeId)
         ->get();
 
         return view('pengajuan.izin.create');
@@ -29,9 +30,10 @@ class IzinController extends Controller
         $tglIzin = $request->tgl_izin;
         $status = $request->status;
         $keterangan = $request->keterangan;
+        $employeeId = auth()->user()->id;
 
         $data = [
-            'user_id' => 2,
+            'user_id' => $employeeId,
             'tgl_izin' => $tglIzin,
             'status' => $status,
             'keterangan' => $keterangan,
