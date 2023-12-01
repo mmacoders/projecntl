@@ -28,7 +28,7 @@
     <!-- * App Capsule -->
 
 
-    @include('partials.script.script-master-user')
+    @include('partials.script.master-user')
 
 </body>
 

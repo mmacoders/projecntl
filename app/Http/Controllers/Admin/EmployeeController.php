@@ -16,4 +16,22 @@ class EmployeeController extends Controller
 
         return view('admin.employee.index', compact('employees'));
     }
+
+    public function store(Request $request) {
+        $idEmployee = $request->id_employee;
+        $fullname = $request->fullname;
+        $position = $request->position;
+
+        try {
+            $data = [
+                'id_employee' => $idEmployee,
+                'fullname' => $fullname,
+                'position' => $position
+            ];
+            $saveToDB = DB::table('employees')->insert($data);
+            
+        } catch (\Exception $e) {
+            
+        }
+    }
 }

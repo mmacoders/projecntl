@@ -33,7 +33,7 @@
 
     @include('partials.user.bottom-nav')
 
-    @include('partials.script.script-master-user')
+    @include('partials.script.master-user')
 
     <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
     <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>

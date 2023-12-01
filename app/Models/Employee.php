@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Employee extends Model
 {
     protected $fillable = [
-        'nik',
+        'id_employee',
         'fullname',
         'position',
         'gender',

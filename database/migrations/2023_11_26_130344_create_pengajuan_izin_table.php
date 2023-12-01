@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('pengajuan_izin', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->date('tgl_izin');
             $table->string('status', 10);
             $table->string('keterangan');
             $table->string('status_approved', 10)->default(0);
+            $table->string('employee_id');
+            $table->foreign('employee_id')->references('id_employee')->on('employees')->onDelete('cascade');
             $table->timestamps();
         });
     }

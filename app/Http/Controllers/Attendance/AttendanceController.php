@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Attendance;
 
 use App\Http\Controllers\Controller;
+use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -12,17 +13,18 @@ class AttendanceController extends Controller
     //
     public function create() {
         $today = date('Y-m-d');
-        $isAttend = DB::table('attendances')->where('attend_date', $today)->count();
+        $isAttend = DB::table('attendances')->where('date_attend', $today)->count();
         return view('attendance.index', compact('isAttend'));
     }
 
-    public function store(Request $request) {
+    public function store(Request $request, Employee $employee) {
         
-        $employeeId = auth()->user()->id;
-        $attendDate = date('Y-m-d');
+        // $employeeId = auth()->user()->id;
+        $idEmployee = $employee->id_employee;
+        $dateAttend = date('Y-m-d');
         $hour = date('H:i:s');
 
-        $isAttend = DB::table('attendances')->where('attend_date', $attendDate)->where('user_id', $employeeId)->count();
+        $isAttend = DB::table('attendances')->where('date_attend', $dateAttend)->where('employee_id', '001')->count();
 
         if($isAttend > 0) {
             $note = 'out';
@@ -33,13 +35,12 @@ class AttendanceController extends Controller
         $image = $request->img;
         $location = $request->loc;
         
-        $folderPath = 'public/uploads/absensi/';
-        $formatName = $attendDate. '-'. $note;
+        $folderPath = 'public/uploads/presence/';
         
         $imageParts = explode(';base64', $image);
         $imageBase64 = base64_decode($imageParts[1]);
         
-        $fileName = $formatName . '.png';
+        $fileName = $dateAttend . '-' . $note . '.png';
         $file = $folderPath . $fileName;
 
 
@@ -49,7 +50,7 @@ class AttendanceController extends Controller
                 'photo_out' => $fileName,
                 'location_out' => $location,
             ];
-            $update = DB::table('attendances')->where('attend_date', $attendDate)->where('user_id', $employeeId)->update($checkOut);
+            $update = DB::table('attendances')->where('attend_date', $dateAttend)->where('employee_id', '001')->update($checkOut);
 
             if($update) {
                 echo 'success|Anda telah melakukan absensi pulang';
@@ -59,11 +60,11 @@ class AttendanceController extends Controller
             }
         } else {
             $checkIn = [
-                'user_id' => $employeeId,
-                'attend_date' => $attendDate,
                 'check_in' => $hour,
                 'photo_in' => $fileName,
                 'location_in' => $location,
+                'date_attend' => $dateAttend,
+                'employee_id' => '001',
             ];
     
             $save = DB::table('attendances')->insert($checkIn);

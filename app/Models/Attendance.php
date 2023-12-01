@@ -10,14 +10,14 @@ class Attendance extends Model
     use HasFactory;
 
     protected $fillable = [
-        'attend_date',
         'check_in',
         'check_out',
         'photo_in',
         'photo_out',
         'location_in',
         'location_out',
-        'user_id',
+        'date_attend',
+        'employee_id',
     ];
 
     public function employee() {
