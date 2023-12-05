@@ -1,40 +1,37 @@
-<form action="{{ route('employee.edit') }}" method="POST" enctype="multipart/form-data">
+<form action="/admin/employee/{{ $employee->id_employee }}/update" method="POST" enctype="multipart/form-data">
     @method('put')
     @csrf
     <div class="row">
       <div class="col-lg-12">
         <div class="mb-3">
           <label class="form-label">ID Karyawan</label>
-          <input type="text" class="form-control" name="id_employee" value="{{ $employee->id_employee }}" readonly>
+          <input type="text" class="form-control" name="id_employee" value="{{ old('id_employee', $employee->id_employee) }}" disabled>
         </div>
       </div>
       <div class="col-lg-12">
         <div class="mb-3">
           <label class="form-label">Username</label>
-          <input type="text" class="form-control" name="username" value="{{ $employee->username }}">
+          <input type="text" class="form-control" name="username" value="{{ old('username', $employee->username) }}">
         </div>
       </div>
       <div class="col-lg-12">
         <div class="mb-3">
           <label class="form-label">Nama Lengkap</label>
-          <input type="text" class="form-control" name="fullname" value="{{ $employee->fullname }}">
+          <input type="text" class="form-control" name="fullname" value="{{ old('fullname', $employee->fullname) }}">
         </div>
       </div>
       <div class="col-lg-12">
         <div class="mb-3">
           <label class="form-label">Jabatan</label>
-          <input type="text" class="form-control" name="position" value="{{ $employee->jabatan }}">
+          <input type="text" class="form-control" name="position" value="{{ old('position', $employee->position) }}">
         </div>
       </div>
       <div class="col-lg-12">
         <div class="mb-3">
           <div class="form-label">Jenis kelamin</div>
           <select class="form-select" name="gender" id="gender">
-            @if ($employee->gender == 'l')
-                <option value="l" selected>Laki-Laki</option>
-            @else
-            <option value="p">Perempuan</option>
-            @endif
+            <option value="l" @selected(old('gender', $employee->gender) == 'l')>Laki-Laki</option>
+            <option value="p" @selected(old('gender', $employee->gender) == 'p')>Perempuan</option>
           </select>
         </div>
       </div>
@@ -42,7 +39,7 @@
         <div class="mb-3">
           <div class="form-label">Foto</div>
             <input type="file" name="photo" class="form-control" accept=".png, .jpg, .jpeg" />
-        <input type="hidden" name="old_photo" value="{{ $employee->photo }}">
+            <input type="hidden" name="old_photo" value="{{ $employee->photo }}">
         </div>
       </div>
       <div class="col-lg-12">

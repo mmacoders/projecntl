@@ -7,6 +7,7 @@ use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class EmployeeAdminController extends Controller
 {
@@ -21,7 +22,7 @@ class EmployeeAdminController extends Controller
             $query->where('fullname', 'like', '%' . $request->fullname . '%');
         }
 
-        $employee = $query->paginate(5);
+        $employee = $query->paginate(10);
 
         return view('admin.employee.index', compact('employee'));
     }
@@ -54,17 +55,16 @@ class EmployeeAdminController extends Controller
             $save = DB::table('employees')->insert($data);
 
             if($save) {
-                
                 if($request->hasFile('photo')) {
                     $folderPath = 'public/uploads/employee/';
                     $request->file('photo')->storeAs($folderPath, $photo);
                 }
 
-                return redirect()->back()->with('success', 'Data karyawan berhasil disimpan');
+                return redirect()->back()->with('success', 'Data karyawan berhasil ditambahkan');
             }
             
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Data karyawan gagal disimpan');
+            return redirect()->back()->with('error', 'Data karyawan gagal ditambahkan');
         }
     }
 
@@ -108,9 +108,10 @@ class EmployeeAdminController extends Controller
             ->update($data);
 
             if($update) {
-                
                 if($request->hasFile('photo')) {
                     $folderPath = 'public/uploads/employee/';
+                    $folderPathOld = 'public/uploads/employee/';
+                    Storage::delete($folderPathOld);
                     $request->file('photo')->storeAs($folderPath, $photo);
                 }
 

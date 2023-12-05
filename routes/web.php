@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Admin\DashboardAdminController;
 use App\Http\Controllers\Admin\EmployeeAdminController;
-use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\PresenceAdminController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RedirectAuthenticatedUsersController;
@@ -39,32 +38,44 @@ Route::middleware(['auth:employee'])->group(function() {
     Route::middleware(['authRole:admin'])->group(function() {
         Route::get('/admin/dashboard', [DashboardAdminController::class, 'index'])->name('dashboard-admin');
 
-        Route::get('/admin/employees', [EmployeeAdminController::class, 'index'])->name('employee-admin');
+        Route::controller(EmployeeAdminController::class)->group(function() {
+            Route::get('/admin/employees', 'index')->name('employee-admin');
+            Route::post('/admin/employee/store', 'store')->name('employee.store');
+            Route::post('/admin/employee/edit', 'edit')->name('employee.edit');
+            Route::put('/admin/employee/{id_employee}/update', 'update');
+        });
 
-        Route::post('/admin/employee/store', [EmployeeAdminController::class, 'store'])->name('employee.store');
-        Route::post('/admin/employee/edit', [EmployeeAdminController::class, 'edit'])->name('employee.edit');
-        Route::put('/admin/employee/{id_employee}/update', [EmployeeController::class, 'update']);
-
-        Route::get('/admin/monitoring/presence', [PresenceAdminController::class, 'index'])->name('presence-admin');
-        Route::post('/admin/presences', [PresenceAdminController::class, 'getPresence'])->name('presence-admin.create');
+        Route::controller(PresenceAdminController::class)->group(function() {
+            Route::get('/admin/presences', 'index')->name('presence-admin');
+            Route::post('/admin/presences', 'getPresence')->name('presence-admin.get-presence');
+            Route::post('/admin/presence/map', 'showMap')->name('presence-admin.show-map');
+        });
     });
 
     // User
     Route::middleware(['authRole:user'])->group(function() {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::get('/presence/create', [PresenceController::class, 'create'])->name('presence.create');
-    Route::post('/presence/store', [PresenceController::class, 'store'])->name('presence.store');
+        Route::controller(PresenceController::class)->group(function() {
+            Route::get('/presence/create', 'create')->name('presence.create');
+            Route::post('/presence/store', 'store')->name('presence.store');
+        });
 
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile');
-    Route::put('/profile/{id_employee}', [ProfileController::class, 'update']);
+        Route::controller(ProfileController::class)->group(function() {
+            Route::get('/profile', 'edit')->name('profile');
+            Route::put('/profile/{id_employee}', 'update');
+        });
 
-    Route::get('/history', [HistoryController::class, 'index'])->name('history');
-    Route::post('/history', [HistoryController::class, 'search']);
+        Route::controller(HistoryController::class)->group(function() {
+            Route::get('/history', 'index')->name('history');
+            Route::post('/history', 'search');
+        });
 
-    Route::get('/pengajuan-izin', [PengajuanIzinController::class, 'index'])->name('pengajuan-izin');
-    Route::get('/pengajuan-izin/create', [PengajuanIzinController::class, 'create'])->name('pengajuan-izin.create');
-    Route::post('/pengajuan-izin/store', [PengajuanIzinController::class, 'store'])->name('pengajuan-izin.store');
+        Route::controller(PengajuanIzinController::class)->group(function() {
+            Route::get('/pengajuan-izin', 'index')->name('pengajuan-izin');
+            Route::get('/pengajuan-izin/create', 'create')->name('pengajuan-izin.create');
+            Route::post('/pengajuan-izin/store', 'store')->name('pengajuan-izin.store');
+        });
     });
 
 });

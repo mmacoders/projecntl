@@ -11,7 +11,9 @@
     <link href="{{ asset('assets/css/inc/tabler/tabler-payments.min.css?1692870487') }}" rel="stylesheet"/>
     <link href="{{ asset('assets/css/inc/tabler/tabler-vendors.min.css?1692870487') }}" rel="stylesheet"/>
     <link href="{{ asset('assets/css/inc/tabler/demo.min.css?1692870487') }}" rel="stylesheet"/>
-    @stack('monit-presence-style')
+    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+    @stack('monitor-presence-style')
+    @stack('presence-map-style')
     <style>
       @import url('https://rsms.me/inter/inter.css');
       :root {

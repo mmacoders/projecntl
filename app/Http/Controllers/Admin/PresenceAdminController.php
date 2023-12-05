@@ -24,4 +24,14 @@ class PresenceAdminController extends Controller
 
         return view('admin.presence.get-presence', compact('presence'));
     }
+
+    public function showMap(Request $request) {
+        $id = $request->id;
+        
+        $presence = DB::table('presences')
+        ->where('id', $id)
+        ->first();
+
+        return view('admin.presence.show-map', compact('presence'));
+    }
 }
