@@ -122,4 +122,16 @@ class EmployeeAdminController extends Controller
             return redirect()->back()->with('error', 'Data karyawan gagal diperbarui');
         }
     }
+
+    public function destroy($idEmployee) {
+        $delete = DB::table('employees')
+        ->where('id_employee', $idEmployee)
+        ->delete();
+
+        if($delete) {
+            return redirect()->back()->with('success', 'Data karyawan berhasil dihapus');
+        } else {
+            return redirect()->back()->with('error', 'Data karyawan gagal dihapus');
+        }
+    }
 }

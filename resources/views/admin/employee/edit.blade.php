@@ -1,5 +1,5 @@
-<form action="/admin/employee/{{ $employee->id_employee }}/update" method="POST" enctype="multipart/form-data">
-    @method('put')
+<form action="/admin/employee/{{ $employee->id_employee }}" method="POST" enctype="multipart/form-data">
+    @method('PUT')
     @csrf
     <div class="row">
       <div class="col-lg-12">

@@ -42,7 +42,8 @@ Route::middleware(['auth:employee'])->group(function() {
             Route::get('/admin/employees', 'index')->name('employee-admin');
             Route::post('/admin/employee/store', 'store')->name('employee.store');
             Route::post('/admin/employee/edit', 'edit')->name('employee.edit');
-            Route::put('/admin/employee/{id_employee}/update', 'update');
+            Route::put('/admin/employee/{id_employee}', 'update');
+            Route::delete('/admin/employee/{id_employee}/delete', 'destroy');
         });
 
         Route::controller(PresenceAdminController::class)->group(function() {
