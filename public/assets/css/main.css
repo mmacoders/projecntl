@@ -1,21 +1,18 @@
-/* #my_camera, #my_camera video {
+#my_camera, #my_camera video {
     display: inline-block;
     width: 100% !important;
-    margin: auto;
-    height: auto !important;
-    border-radius: 15px;
-} */
-#map {
-    height: 180px;
+    /* margin: auto; */
+    /* height: auto !important; */
+    border-radius: 15px; 
 }
 
-html {
-    scroll-behavior: smooth;
+#map {
+    height: 200px;
 }
 
 .card-rekap-presence {
     padding: 12px 12px !important;
-    line-height: 0.8rem;
+    line-height: 0.8rem !important;
 }
 
 .badge-rekap-presence {
@@ -32,10 +29,22 @@ html {
 
 .txt-rekap-presence {
     font-size: 0.8rem;
-    font-weight: 500;
+    font-weight: 550;
 }
 
-.history-content {
+.content-profile {
+    margin-top: 4rem;
+}
+
+.content-master-user {
+    margin-top: 70px;
+}
+
+.content-pengajuan-izin {
+    margin-bottom: 70px;
+}
+
+.content-pengajuan-izin-create {
     margin-top: 70px;
 }
 
@@ -44,5 +53,5 @@ html {
 }
 
 .datepicker-date-display {
-    background-color: #0f3a7e !important;
+    background-color: #ec4433 !important;
 }

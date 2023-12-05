@@ -27,7 +27,7 @@ body {
 
 a {
   transition: 0.2s all;
-  color: #1e74fd;
+  color: #ec4433;
   outline: 0 !important;
 }
 
@@ -35,7 +35,7 @@ a:hover,
 a:active,
 a:focus {
   outline: 0 !important;
-  color: #1e74fd;
+  color: #ec4433;
   text-decoration: none;
 }
 
@@ -427,7 +427,7 @@ button:focus {
   align-items: center;
   justify-content: center;
   border-radius: 200px;
-  background: #1e74fd;
+  background: #ec4433;
 }
 
 .appBottomMenu .item .action-button.large {
@@ -464,7 +464,7 @@ button:focus {
 .appBottomMenu .item.active i.icon,
 .appBottomMenu .item.active ion-icon,
 .appBottomMenu .item.active strong {
-  color: #1e74fd !important;
+  color: #ec4433 !important;
   font-weight: 500;
 }
 
@@ -5464,7 +5464,7 @@ textarea,
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #1e74fd;
+  background: #34c759;
   border-radius: 100%;
   color: #fff !important;
 }
@@ -5478,7 +5478,7 @@ textarea,
 
 .fab-button .fab:hover,
 .fab-button .fab:active {
-  background: #1e74fd;
+  background: #ec4433;
 }
 
 .fab-button.text .fab {
@@ -7996,7 +7996,7 @@ body.dark-mode-active .cart-item .cart-item-footer {
 
 #user-section {
   height: 180px;
-  background-color: #092c9f;
+  background-color: #ec4433;
   padding: 20px;
 }
 

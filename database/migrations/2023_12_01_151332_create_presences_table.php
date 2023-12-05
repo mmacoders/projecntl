@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('attendances', function (Blueprint $table) {
+        Schema::create('presences', function (Blueprint $table) {
             $table->id();
             $table->time('check_in');
             $table->time('check_out')->nullable();
             $table->string('photo_in');
             $table->string('photo_out')->nullable();
-            $table->string('location_in');
-            $table->string('location_out')->nullable();
-            $table->timestamp('date_attend');
+            $table->string('latitude');
+            $table->string('longitude');
+            $table->date('presence_at');
             $table->string('employee_id');
             $table->foreign('employee_id')->references('id_employee')->on('employees')->onDelete('cascade');
             $table->timestamps();
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('attendances');
+        Schema::dropIfExists('presences');
     }
 };

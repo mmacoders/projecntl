@@ -1,0 +1,27 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
+class PresenceAdminController extends Controller
+{
+    //
+    public function index() {
+        return view('admin.presence.index');
+    }
+
+    public function getPresence(Request $request) {
+        $date = $request->date;
+
+        $presence = DB::table('presences')
+        ->select('presences.*', 'fullname')
+        ->join('employees', 'presences.employee_id', '=', 'employees.id_employee')
+        ->where('presence_at', $date)
+        ->get();
+
+        return view('admin.presence.get-presence', compact('presence'));
+    }
+}

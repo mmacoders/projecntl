@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('pengajuan_izin', function (Blueprint $table) {
             $table->id();
-            $table->date('tgl_izin');
+            $table->date('izin_at');
             $table->string('status', 10);
             $table->string('keterangan');
             $table->string('status_approved', 10)->default(0);

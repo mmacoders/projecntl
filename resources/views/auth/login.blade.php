@@ -3,12 +3,10 @@
 @section('content')
 <div class="login-form mt-1">
     <div class="section">
-        {{-- <img src="{{ asset('assets/img/login.jpg') }}" alt="image" class="form-image"> --}}
         <img src="{{ asset('assets/img/login.jpg') }}" alt="image" class="form-image">
     </div>
     <div class="section mt-1">
-        <h1>E-Presensi PT. KING Gorontalo</h1>
-        {{-- <h1>E-Presensi BPS Prov Gorontalo</h1> --}}
+        <h1>E-Presensi PT. KOPINETGO</h1>
         <h4>Masuk ke akun Anda</h4>
     </div>
     <div class="section mt-1 mb-5">
@@ -19,7 +17,7 @@
             </div>
         @endif
 
-        <form action="{{ route('login') }}" method="POST">
+        <form action="{{ route('authenticate') }}" method="POST">
             @csrf
             <div class="form-group boxed">
                 <div class="input-wrapper">
@@ -32,7 +30,7 @@
 
             <div class="form-group boxed">
                 <div class="input-wrapper">
-                    <input type="password" name="password" class="form-control" id="password" placeholder="Password" required>
+                    <input type="password" name="password" class="form-control" id="password" placeholder="Kata Sandi" required>
                     <i class="clear-input">
                         <ion-icon name="close-circle"></ion-icon>
                     </i>

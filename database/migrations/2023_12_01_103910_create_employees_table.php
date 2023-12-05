@@ -12,12 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('employees', function (Blueprint $table) {
-            $table->string('id_employee', 25)->primary();
-            $table->string('fullname', 100);
-            $table->string('position', 50);
-            $table->string('gender', 25);
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('id_employee', 50)->primary();
+            $table->string('username', 50)->unique();
+            $table->string('fullname')->nullable();
+            $table->string('position', 50)->nullable();
+            $table->string('gender', 25)->nullable();
+            $table->string('password');
+            $table->string('role', 10)->default('user');
+            $table->rememberToken();
             $table->timestamps();
         });
     }
@@ -27,9 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('employees', function(Blueprint $table) {
-            $table->dropForeign(['user_id']);
-        });
         Schema::dropIfExists('employees');
     }
 };

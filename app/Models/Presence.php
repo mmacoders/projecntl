@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Attendance extends Model
+class Presence extends Model
 {
     use HasFactory;
 
@@ -14,14 +14,13 @@ class Attendance extends Model
         'check_out',
         'photo_in',
         'photo_out',
-        'location_in',
-        'location_out',
-        'date_attend',
-        'employee_id',
+        'latitude',
+        'longitude',
+        'presence_at',
+        'employee_id'
     ];
 
     public function employee() {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Employee::class);
     }
 }
-

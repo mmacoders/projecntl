@@ -4,39 +4,37 @@ namespace App\Http\Controllers\Pengajuan;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class IzinController extends Controller
+class PengajuanIzinController extends Controller
 {
     //
     public function index() {
+        $idEmployee = Auth::guard('employee')->user()->id_employee;
+        
         $dataIzin = DB::table('pengajuan_izin')
-        ->where('user_id', 2)
+        ->where('employee_id', $idEmployee)
         ->get();
 
-        return view('pengajuan.izin.index', compact('dataIzin'));
+        return view('pengajuan-izin.index', compact('dataIzin'));
     }
 
     public function create() {
-        $employeeId = auth()->user()->id;
-        $dataIzin = DB::table('pengajuan_izin')
-        ->where('user_id', $employeeId)
-        ->get();
-
-        return view('pengajuan.izin.create');
+        return view('pengajuan-izin.create');
     }
 
     public function store(Request $request) {
-        $tglIzin = $request->tgl_izin;
+        $idEmployee = Auth::guard('employee')->user()->id_employee;
+        $izinAt = $request->izinAt;
         $status = $request->status;
         $keterangan = $request->keterangan;
-        $employeeId = auth()->user()->id;
 
         $data = [
-            'user_id' => $employeeId,
-            'tgl_izin' => $tglIzin,
+            'izin_at' => $izinAt,
             'status' => $status,
             'keterangan' => $keterangan,
+            'employee_id' => $idEmployee,
         ];
 
         $save = DB::table('pengajuan_izin')->insert($data);

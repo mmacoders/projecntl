@@ -7,17 +7,15 @@
 <ul class="listview image-listview">
     <li>
         <div class="item">
-            @php
-                $path = Storage::url('uploads/absensi/' . $h->photo_in)
-            @endphp
-            <img src="{{ url($path) }}" alt="image" class="image">
+            <img src="{{ asset('storage/uploads/presence/' . $h->photo_in) }}" alt="image" class="image">
             <div class="in">
                 <div>
-                    <b>{{ date('d-m-Y', strtotime($h->attend_date)) }}</b><br>
+                    <b>{{ date('d-m-Y', strtotime($h->presence_at)) }}</b><br>
                 </div>
-                <span class="badge {{ $h->check_in < '07:00' ? 'bg-succes' : 'bg-danger' }}">
+                <span class="badge {{ $h->check_in < '07:00' ? 'bg-success' : 'bg-danger' }}">
                     {{ $h->check_in }}
                 </span>
+                <span class="badge bg-danger">{{ $h->check_out }}</span>
             </div>
         </div>
     </li>

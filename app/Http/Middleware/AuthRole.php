@@ -4,10 +4,10 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class AuthRole
-{
+class AuthRole {
     /**
      * Handle an incoming request.
      *
@@ -15,11 +15,11 @@ class AuthRole
      */
     public function handle(Request $request, Closure $next, string $role): Response
     {
-        if($role == 'admin' && auth()->user()->role != 'admin') {
+        if($role == 'admin' && Auth::guard('employee')->user()->role != 'admin') {
             abort(403);
         }
 
-        if($role == 'user' && auth()->user()->role != 'user') {
+        if($role == 'user' && Auth::guard('employee')->user()->role != 'user') {
             abort(403);
         }
 

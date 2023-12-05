@@ -6,11 +6,15 @@
     </a> --}}
     <div id="user-detail">
         <div class="avatar">
-            <img src="assets/img/sample/avatar/avatar1.jpg" alt="avatar" class="imaged w64 rounded">
+            @if (!empty(Auth::guard('employee')->user()->photo))
+                <img src="{{ asset('storage/uploads/employee/' . Auth::guard('employee')->user()->photo) }}" alt="avatar" class="imaged w64" style="height: 60px">
+            @else
+                <img src="assets/img/sample/avatar/avatar1.jpg" alt="avatar" class="imaged w64 rounded">
+            @endif
         </div>
         <div id="user-info">
-            <h2 id="user-name">John Doe</h2>
-            <span id="user-role">{{ auth()->user()->position }}</span>
+            <h2 id="user-name">{{ Auth::guard('employee')->user()->fullname }}</h2>
+            <span id="user-role">{{ Auth::guard('employee')->user()->position }}</span>
         </div>
     </div>
 </div>
@@ -21,7 +25,7 @@
             <div class="list-menu">
                 <div class="item-menu text-center">
                     <div class="menu-icon">
-                        <a href="" class="green" style="font-size: 40px;">
+                        <a href="{{ route('profile') }}" class="green" style="font-size: 40px;">
                             <ion-icon name="person"></ion-icon>
                         </a>
                     </div>
@@ -31,7 +35,7 @@
                 </div>
                 <div class="item-menu text-center">
                     <div class="menu-icon">
-                        <a href="" class="danger" style="font-size: 40px;">
+                        <a href="{{ route('pengajuan-izin') }}" class="primary" style="font-size: 40px;">
                             <ion-icon name="calendar-number-outline"></ion-icon>
                         </a>
                     </div>
@@ -41,7 +45,7 @@
                 </div>
                 <div class="item-menu text-center">
                     <div class="menu-icon">
-                        <a href="" class="warning" style="font-size: 40px;">
+                        <a href="{{ route('history') }}" class="warning" style="font-size: 40px;">
                             <ion-icon name="document-text"></ion-icon>
                         </a>
                     </div>
@@ -71,18 +75,15 @@
                     <div class="card-body">
                         <div class="presencecontent">
                             <div class="iconpresence">
-                                @if ($attendance != null)
-                                    @php
-                                        $path = Storage::url('uploads/absensi/' . $attendance->photo_in);
-                                    @endphp
-                                    <img src="{{ url($path) }}" alt="" class="imaged w48">
+                                @if ($todayPresence != null)
+                                    <img src="{{ asset('storage/uploads/presence/' . $todayPresence->photo_in) }}" alt="" class="imaged w48">
                                 @else
                                     <ion-icon name="camera"></ion-icon>
                                 @endif
                             </div>
                             <div class="presencedetail">
                                 <h4 class="presencetitle">Masuk</h4>
-                                <span>{{ $attendance != null ? $attendance->check_in : 'Belum Absen' }}</span>
+                                <span>{{ $todayPresence != null ? $todayPresence->check_in : 'Belum Absen' }}</span>
                             </div>
                         </div>
                     </div>
@@ -93,18 +94,15 @@
                     <div class="card-body">
                         <div class="presencecontent">
                             <div class="iconpresence">
-                                @if ($attendance != null && $attendance->check_out != null)
-                                @php
-                                    $path = Storage::url('uploads/absensi/' . $attendance->photo_out);
-                                @endphp
-                                    <img src="{{ url($path) }}" alt="" class="imaged w48">
+                                @if ($todayPresence != null && $todayPresence->check_out != null)
+                                    <img src="{{ asset('storage/uploads/presence/' . $todayPresence->photo_out) }}" alt="" class="imaged w48">
                                 @else
                                     <ion-icon name="camera"></ion-icon>
                                 @endif
                             </div>
                             <div class="presencedetail">
                                 <h4 class="presencetitle">Pulang</h4>
-                                <span>{{ $attendance != null && $attendance->check_out != null ? $attendance->check_out : 'Belum absen' }}</span>
+                                <span>{{ $todayPresence != null && $todayPresence->check_out != null ? $todayPresence->check_out : 'Belum absen' }}</span>
                             </div>
                         </div>
                     </div>
@@ -114,12 +112,12 @@
     </div>
 
     <div id="rekap-presence">
-        <h3>Rekap presensi Januari 2023</h3>
+        <h3>Rekap Presensi {{ $months[$thisMonth] }} {{ $thisYear }}</h3>
         <div class="row">
             <div class="col-3">
                 <div class="card">
                     <div class="card-body text-center card-rekap-presence">
-                        <span class="badge bg-danger badge-rekap-presence">{{ $rekapAttendance->jmlh_hadir }}</span>
+                        <span class="badge bg-danger badge-rekap-presence">{{ $dataPresence->jmlh_hadir }}</span>
                         <ion-icon name="finger-print-outline" class="text-success mb-1 icon-rekap-presence"></ion-icon>
                         <br>
                         <span class="txt-rekap-presence">Hadir</span>
@@ -129,18 +127,18 @@
             <div class="col-3">
                 <div class="card">
                     <div class="card-body text-center card-rekap-presence">
-                        <span class="badge bg-danger badge-rekap-presence">{{ $rekapAttendance->jmlh_terlambat }}</span>
-                        <ion-icon name="timer-outline" class="text-danger mb-1 icon-rekap-presence"></ion-icon>
+                        <span class="badge bg-danger badge-rekap-presence">{{ $dataPresence->jmlh_terlambat }}</span>
+                        <ion-icon name="time-outline" class="text-warning mb-1 icon-rekap-presence"></ion-icon>
                         <br>
                         <span class="txt-rekap-presence">Terlambat</span>
                     </div>
                 </div>
-        </div>
+            </div>
             <div class="col-3">
                 <div class="card">
                     <div class="card-body text-center card-rekap-presence">
-                        <span class="badge bg-danger badge-rekap-presence">{{ $rekapIzin->jmlh_izin }}</span>
-                        <ion-icon name="calendar-number-outline" class="text-info mb-1 icon-rekap-presence"></ion-icon>
+                        <span class="badge bg-danger badge-rekap-presence">{{ $dataIzin->jmlh_izin }}</span>
+                        <ion-icon name="calendar-number-outline" class="text-primary mb-1 icon-rekap-presence"></ion-icon>
                         <br>
                         <span class="txt-rekap-presence">Izin</span>
                     </div>
@@ -149,8 +147,8 @@
             <div class="col-3">
                 <div class="card">
                     <div class="card-body text-center card-rekap-presence">
-                        <span class="badge bg-danger badge-rekap-presence">{{ $rekapIzin->jmlh_sakit }}</span>
-                        <ion-icon name="medkit-outline" class="text-warning mb-1 icon-rekap-presence"></ion-icon>
+                        <span class="badge bg-danger badge-rekap-presence">{{ $dataIzin->jmlh_sakit }}</span>
+                        <ion-icon name="medkit-outline" class="text-danger mb-1 icon-rekap-presence"></ion-icon>
                         <br>
                         <span class="txt-rekap-presence">Sakit</span>
                     </div>
@@ -177,35 +175,35 @@
         <div class="tab-content mt-2" style="margin-bottom:100px;">
             <div class="tab-pane fade show active" id="home" role="tabpanel">
                 <ul class="listview image-listview">
-                    @foreach ($historyOfThisMonth as $history)
+                    @foreach ($presenceHistoryOfMonth as $h)
                     <li>
                         <div class="item">
-                            <div class="icon-box bg-primary">
+                            <div class="icon-box bg-danger">
                                 <ion-icon name="finger-print-outline"></ion-icon>
                             </div>
                             <div class="in">
-                                <div>{{ date('d-m-Y', strtotime($history->attend_date)) }}</div>
-                                <span class="badge badge-success">{{ $history->check_in }}</span>
-                                <span class="badge badge-danger">{{ $attendance != null && $history->check_out != null ? $history->check_out : 'Belum absen' }}</span>
+                                <div>{{ date('d-m-Y', strtotime($h->presence_at)) }}</div>
+                                {{-- <span class="badge badge-success">{{ $h->check_in }}</span> --}}
+                                {{-- <span class="badge badge-danger">{{ $todayPresence != null && $h->check_out != null ? $h->check_out : 'Belum absen' }}</span> --}}
                             </div>
-                        </div>
+                        </div> 
                     </li>
                     @endforeach
                 </ul>
             </div>
             <div class="tab-pane fade" id="profile" role="tabpanel">
                 <ul class="listview image-listview">
-                    @foreach ($leaderboard as $lb)
+                    @foreach ($leaderboardPresence as $l)
                     <li>
                         <div class="item">
                             <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
                             <div class="in">
                                 <div>
-                                    <b>{{ $lb->username }}</b><br>
-                                    <small class="text-muted">Jabatan</small>
+                                    <b>{{ $l->fullname }}</b><br>
+                                    <small class="text-muted">{{ $l->position }}</small>
                                 </div>
-                                <span class="badge {{ $lb->check_in < '07:00' ? 'bg-succes' : 'bg-danger' }}">
-                                    {{ $lb->check_in }}
+                                <span class="badge {{ $l->check_in < '07:00' ? 'bg-success' : 'bg-danger' }}">
+                                    {{ $l->check_in }}
                                 </span>
                             </div>
                         </div>
