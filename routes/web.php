@@ -50,6 +50,8 @@ Route::middleware(['auth:employee'])->group(function() {
             Route::get('/admin/presences', 'index')->name('presence-admin');
             Route::post('/admin/presences', 'getPresence')->name('presence-admin.get-presence');
             Route::post('/admin/presence/map', 'showMap')->name('presence-admin.show-map');
+            Route::get('/admin/presence/reports', 'report')->name('report-presence-admin');
+            Route::post('/admin/presence/cetak-laporan', 'cetakLaporan');
         });
     });
 

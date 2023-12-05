@@ -1,18 +1,15 @@
-<div class="map">
+<div id="map"></div>
+<script>
+    const getLatitude = "{{ $presence->latitude }}";
+    const getLongitude = "{{ $presence->longitude }}";
+    
+    const map = L.map('map').setView([getLatitude, getLongitude], 16);
 
-</div>
-@push('presence-map-style')
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-crossorigin=""/>
-@endpush
-@push('presence-map-script')
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-crossorigin=""></script>
-var map = L.map('map').setView([51.505, -0.09], 13);
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-}).addTo(map);
-@endpush
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    const marker = L.marker([getLatitude, getLongitude]).addTo(map);
+    marker.bindPopup("{{ $presence->fullname }}").openPopup();
+</script>
