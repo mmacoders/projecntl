@@ -90,6 +90,7 @@ class PresenceAdminController extends Controller
         ->where('employee_id', $idEmployee)
         ->whereRaw('MONTH(presence_at)="' . $month . '"')
         ->whereRaw('YEAR(presence_at)="' . $year . '"')
+        ->orderBy('presence_at')
         ->get();
 
         return view('admin.presence.cetak-laporan', compact('month', 'year', 'months', 'employee', 'presence'));

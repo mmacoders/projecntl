@@ -32,14 +32,14 @@
     border-collapse: collapse;
   }
 
-  .table-presence > tr, th {
-    border: 2px solid black;
+  .table-presence tr th {
+    border: 1px solid black;
     padding: 8px;
     background: #9f9d9d;
   }
 
-  .table-presence > tr > td {
-    border: 2px solid black;
+  .table-presence tr td {
+    border: 1px solid black;
     padding: 5px;
     font-size: 12px;
   }
@@ -61,9 +61,9 @@
             </td>
             <td>
               <h3>
-                Laporan Presensi<br>
-                Periode {{ $months[$month] }} {{ $year }}<br>
-                PT. Koperasi Internet Network Gorontalo
+                LAPORAN PRESENSI KARYAWAN<br>
+                PERIODE {{ strtoupper($months[$month]) }} {{ $year }}<br>
+                PT. KOPERASI INTERNET NETWORK GORONTALO
               </h3>
             </td>
         </tr>
@@ -72,10 +72,7 @@
     <table class="table-data-employee">
       <tr>
         <td rowspan="4">
-          @php
-              $path = Storage::url('uploads/employee/' . $employee->photo);
-          @endphp
-          <img src="{{ url($path) }}" alt="" width="200" height="200">
+          <img src="{{ asset('storage/uploads/employee/' . $employee->photo) }}" alt="" width="200" height="200">
         </td>
       </tr>
       <tr>
@@ -99,9 +96,8 @@
       <tr>
         <th>No</th>
         <th>Tanggal</th>
-        <th>Jam masuk</th>
-        <th>Foto</th>
-        <th>Lokasi</th>
+        <th>Presensi masuk</th>
+        <th>Preensi pulang</th>
         <th>Keterangan</th>
       </tr>
       @foreach ($presence as $p)
@@ -109,8 +105,28 @@
           <td>{{ $loop->iteration }}</td>
           <td>{{ date('d-m-Y', strtotime($p->presence_at)) }}</td>
           <td>{{ $p->check_in }}</td>
+          <td>{{ $p->check_out != null ? $p->check_out : 'Belum absen' }}</td>
+          <td>
+            @if ($p->check_in >= "07:00")
+                Terlambat
+            @else
+                Tepat waktu
+            @endif
+          </td>
         </tr>
       @endforeach
+    </table>
+
+    <table width="100%" style="margin-top: 100px">
+      <tr>
+        <td style="text-align: right">Gorontalo, {{ date('d-m-Y') }}</td>
+      </tr>
+      <tr>
+        <td style="text-align: right; vertical-align:bottom" height="100px">
+          <u>Name</u><br>
+          <i><b>Jabatan</b></i>
+        </td>
+      </tr>
     </table>
 
   </section>
