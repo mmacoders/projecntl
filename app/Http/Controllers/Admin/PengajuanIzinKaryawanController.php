@@ -3,18 +3,39 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\PengajuanIzin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class PengajuanIzinKaryawanController extends Controller
 {
     //
-    public function index() {
+    public function index(Request $request) {
 
-        $dataIzin = DB::table('pengajuan_izin')
-        ->join('employees', 'pengajuan_izin.employee_id', '=', 'employees.id_employee')
-        ->orderBy('izin_at', 'desc')
-        ->get();
+        $query = PengajuanIzin::query();
+        $query->select('id', 'izin_at', 'pengajuan_izin.employee_id', 'fullname', 'position', 'status', 'keterangan', 'status_approved');
+        $query->join('employees', 'pengajuan_izin.employee_id', '=', 'employees.id_employee');
+        $query->orderBy('izin_at', 'desc');
+
+
+        if(!empty($request->from) && !empty($request->to)) {
+            $query->whereBetween('izin_at', [$request->from, $request->to]);
+        }
+
+        if(!empty($request->employee_id)) {
+            $query->where('pengajuan_izin.employee_id', $request->employee_id);
+        }
+
+        if(!empty($request->fullname)) {
+            $query->where('fullname', 'LIKE', '%' . $request->fullname . '%');
+        } 
+
+        if($request->status_approved != '') {
+            $query->where('status_approved', $request->status_approved);
+        } 
+
+        $dataIzin = $query->paginate(10);
+        $dataIzin->appends($request->all());
 
         return view('admin.pengajuan-izin.index', compact('dataIzin'));
     }
@@ -36,7 +57,7 @@ class PengajuanIzinKaryawanController extends Controller
         }
     }
 
-    public function updateDecline($id) {
+    public function updateStatusApproved($id) {
         $update = DB::table('pengajuan_izin')
         ->where('id', $id)
         ->update([

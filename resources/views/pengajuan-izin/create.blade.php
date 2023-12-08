@@ -19,7 +19,7 @@
             <form action="{{ route('pengajuan-izin.store') }}" method="POST" id="form-pengajuan-izin">
                 @csrf
                 <div class="form-group">
-                    <input type="text" class="form-control datepicker" placeholder="Tanggal" id="izinAt" name="izinAt">
+                    <input type="text" class="form-control datepicker" placeholder="Tanggal" id="izinAt" name="izinAt" autocomplete="off">
                 </div>
                 <div class="form-group">
                     <select name="status" id="status" class="form-control">
@@ -52,6 +52,29 @@
      $(document).ready(function() {
             $('.datepicker').datepicker({
                 format: 'yyyy-mm-dd'    
+            });
+
+            $('#izinAt').change(function(e) {
+                const izinAt = $(this).val();
+                $.ajax({
+                    type: 'POST',
+                    url: '/pengajuan-izin/cek',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        izinAt: izinAt
+                    },
+                    success: (response) => {
+                        if(response == 1) {
+                            Swal.fire({
+                                title: 'Oops!',
+                                text: 'Anda sudah melakukan pengajuan izin pada tanggal tersebut',
+                                icon: 'warning',
+                            }).then((result) => {
+                                $('#izinAt').val('');
+                            });
+                        }
+                    }
+                });
             });
 
             $('#form-pengajuan-izin').submit(function() {

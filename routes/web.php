@@ -60,7 +60,7 @@ Route::middleware(['auth:employee'])->group(function() {
         Route::controller(PengajuanIzinKaryawanController::class)->group(function() {
             Route::get('/admin/pengajuan-izin-karyawan', 'index')->name('pengajuan-izin-admin');
             Route::put('/admin/pengajuan-izin-karyawan/update', 'update');
-            Route::put('/admin/pengajuan-izin-karyawan/{id}', 'updateDecline');
+            Route::get('/admin/pengajuan-izin-karyawan/{id}', 'updateStatusApproved');
         });
     });
 
@@ -87,35 +87,7 @@ Route::middleware(['auth:employee'])->group(function() {
             Route::get('/pengajuan-izin', 'index')->name('pengajuan-izin');
             Route::get('/pengajuan-izin/create', 'create')->name('pengajuan-izin.create');
             Route::post('/pengajuan-izin/store', 'store')->name('pengajuan-izin.store');
+            Route::post('/pengajuan-izin/cek', 'cekPengajuanIzin');
         });
     });
-
 });
-
-// Route::group(['middleware' => 'authRole:admin'], function() {
-//     Route::get('/admin/dashboard', [DashboardAdminController::class, 'index'])->name('dashboard-admin');
-//     Route::get('/admin/employees', [EmployeeController::class, 'index'])->name('employee-admin');
-//     });
-// Route::group(['middleware' => 'auth'], function() {
-
-//     // User
-//     Route::group(['middleware' => 'authRole:user'], function(){
-        
-//         // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
-//         Route::get('/presence', [AttendanceController::class, 'create'])->name('presensi.create');
-//         Route::post('presensi/store', [AttendanceController::class, 'store'])->name('presensi.store');
-//         Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-//         Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-//         Route::put('/profile/2', [ProfileController::class, 'edit']);
-
-
-//         // Pengajuan izin
-//         Route::get('/presensi/pengajuan-izin', [IzinController::class, 'index'])->name('pengajuan-izin');
-//         Route::get('presensi/pengajuan-izin/create', [IzinController::class, 'create'])->name('pengajuan-izin.create');
-//         Route::post('presensi/pengajuan-izin/store', [IzinController::class, 'store'])->name('pengajuan-izin.store');
-//     });
-
-
-//     
-// });

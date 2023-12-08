@@ -9,6 +9,8 @@ class PengajuanIzin extends Model
 {
     use HasFactory;
 
+    protected $table = 'pengajuan_izin';
+    
     protected $fillable = [
         'izin_at',
         'status',

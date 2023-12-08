@@ -45,4 +45,16 @@ class PengajuanIzinController extends Controller
             return redirect()->route('pengajuan-izin')->with(['error' => 'Data gagal disimpan']);
         }
     }
+
+    public function cekPengajuanIzin(Request $request) {
+        $izinAt = $request->izinAt;
+        $idEmployee = Auth::guard('employee')->user()->id_employee;
+
+        $cek = DB::table('pengajuan_izin')
+        ->where('employee_id', $idEmployee)
+        ->where('izin_at', $izinAt)
+        ->count();
+
+        return $cek;
+    }
 }
