@@ -164,6 +164,9 @@
                   <a class="dropdown-item" href="{{ route('employee-admin') }}">
                     Data Karyawan
                   </a>
+                  <a class="dropdown-item" href="{{ route('pengajuan-izin-admin') }}">
+                    Data Izin / Sakit
+                  </a>
                 </div>
               </div>
             </div>
@@ -193,7 +196,7 @@
                   <a class="dropdown-item" href="{{ route('report-presence-admin') }}">
                     Presensi
                   </a>
-                  <a class="dropdown-item" href="{{ route('employee-admin') }}">
+                  <a class="dropdown-item" href="{{ route('rekap-presence-admin') }}">
                     Rekap Presensi
                   </a>
                 </div>

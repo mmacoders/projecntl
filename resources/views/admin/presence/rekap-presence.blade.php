@@ -6,7 +6,7 @@
     <div class="row g-2 align-items-center">
       <div class="col">
         <h2 class="page-title">
-          Laporan Presensi
+          Rekap Presensi
         </h2>
       </div>
     </div>
@@ -18,7 +18,7 @@
       <div class="col-6">
         <div class="card">
           <div class="card-body">
-            <form action="/admin/presence/cetak-laporan" target="_blank" method="POST">
+            <form action="/admin/presence/cetak-rekap" target="_blank" method="POST">
               @csrf
               <div class="row">
                 <div class="col-12">
@@ -44,18 +44,6 @@
                       @for ($year = $startYear; $year <= $currentYear; $year++)
                       <option value="{{ $year }}" {{ date('Y') == $year ? 'selected' : '' }}>{{ $year }}</option>
                       @endfor
-                    </select>
-                  </div>
-                </div>
-              </div>
-              <div class="row mt-2">
-                <div class="col-12">
-                  <div class="form-group">
-                    <select name="id_employee" id="idEmployee" class="form-select">
-                      <option value="">Pilih karyawan</option>
-                      @foreach ($employees as $employee)
-                          <option value="{{ $employee->id_employee }}">{{ $employee->fullname }}</option>
-                      @endforeach
                     </select>
                   </div>
                 </div>

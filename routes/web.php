@@ -2,7 +2,8 @@
 
 use App\Http\Controllers\Admin\DashboardAdminController;
 use App\Http\Controllers\Admin\EmployeeAdminController;
-use App\Http\Controllers\Admin\PresenceAdminController;
+use App\Http\Controllers\Admin\PengajuanIzinKaryawanController;
+use App\Http\Controllers\Admin\PresenceEmployeeController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RedirectAuthenticatedUsersController;
 use App\Http\Controllers\Dashboard\DashboardController;
@@ -46,12 +47,20 @@ Route::middleware(['auth:employee'])->group(function() {
             Route::delete('/admin/employee/{id_employee}/delete', 'destroy');
         });
 
-        Route::controller(PresenceAdminController::class)->group(function() {
+        Route::controller(PresenceEmployeeController::class)->group(function() {
             Route::get('/admin/presences', 'index')->name('presence-admin');
             Route::post('/admin/presences', 'getPresence')->name('presence-admin.get-presence');
             Route::post('/admin/presence/map', 'showMap')->name('presence-admin.show-map');
-            Route::get('/admin/presence/reports', 'report')->name('report-presence-admin');
+            Route::get('/admin/presence/report', 'report')->name('report-presence-admin');
             Route::post('/admin/presence/cetak-laporan', 'cetakLaporan');
+            Route::get('/admin/presence/rekap', 'rekap')->name('rekap-presence-admin');
+            Route::post('/admin/presence/cetak-rekap', 'cetakRekap');
+        });
+
+        Route::controller(PengajuanIzinKaryawanController::class)->group(function() {
+            Route::get('/admin/pengajuan-izin-karyawan', 'index')->name('pengajuan-izin-admin');
+            Route::put('/admin/pengajuan-izin-karyawan/update', 'update');
+            Route::put('/admin/pengajuan-izin-karyawan/{id}', 'updateDecline');
         });
     });
 
@@ -82,16 +91,6 @@ Route::middleware(['auth:employee'])->group(function() {
     });
 
 });
-
-// Route::group(['middleware' => 'authRole:user'], function() {
-//     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
-//     Route::controller(PresenceController::class)->group(function() {
-//         Route::get('/presence/create', 'create')->name('presence.create');
-//         Route::post('/presence/store', 'store')->name('presence.store');
-//     });
-// });
-
 
 // Route::group(['middleware' => 'authRole:admin'], function() {
 //     Route::get('/admin/dashboard', [DashboardAdminController::class, 'index'])->name('dashboard-admin');

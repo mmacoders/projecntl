@@ -36,6 +36,7 @@
     border: 1px solid black;
     padding: 8px;
     background: #9f9d9d;
+    font-size: 10px;
   }
 
   .table-presence tr td {
@@ -49,7 +50,7 @@
 
 <!-- Set "A5", "A4" or "A3" for class name -->
 <!-- Set also "landscape" if you need -->
-<body class="A4">
+<body class="A4 landscape">
 
   <!-- Each sheet element should have the class "sheet" -->
   <!-- "padding-**mm" is optional: you can set 10, 15, 20 or 25 -->
@@ -61,7 +62,7 @@
             </td>
             <td>
               <h3>
-                LAPORAN PRESENSI KARYAWAN<br>
+                REKAP PRESENSI KARYAWAN<br>
                 PERIODE {{ strtoupper($months[$month]) }} {{ $year }}<br>
                 PT. KOPERASI INTERNET NETWORK GORONTALO
               </h3>
@@ -69,52 +70,58 @@
         </tr>
     </table>
 
-    <table class="table-data-employee">
-      <tr>
-        <td rowspan="4">
-          <img src="{{ asset('storage/uploads/employee/' . $employee->photo) }}" alt="" width="200" height="200">
-        </td>
-      </tr>
-      <tr>
-        <td>ID Karyawan</td>
-        <td>:</td>
-        <td>{{ $employee->id_employee }}</td>
-      </tr>
-      <tr>
-        <td>Nama</td>
-        <td>:</td>
-        <td>{{ $employee->fullname }}</td>
-      </tr>
-    <tr>
-        <td>Jabatan</td>
-        <td>:</td>
-        <td>{{ $employee->position }}</td>
-      </tr>
-    </table>
-
-    <table style="" class="table-presence">
-      <tr>
-        <th>No</th>
-        <th>Tanggal</th>
-        <th>Presensi masuk</th>
-        <th>Preensi pulang</th>
-        <th>Keterangan</th>
-      </tr>
-      @foreach ($presence as $p)
+    <table class="table-presence">
         <tr>
-          <td>{{ $loop->iteration }}</td>
-          <td>{{ date('d-m-Y', strtotime($p->presence_at)) }}</td>
-          <td>{{ $p->check_in }}</td>
-          <td>{{ $p->check_out != null ? $p->check_out : 'Belum absen' }}</td>
-          <td>
-            @if ($p->check_in >= "07:00")
-                Terlambat
-            @else
-                Tepat waktu
-            @endif
-          </td>
+            <th rowspan="2">ID Karyawan</th>
+            <th rowspan="2">Nama</th>
+            <th colspan="31">Tanggal</th>
+            <th rowspan="2">Total Hadir</th>
+            <th rowspan="2">Total Terlambat</th>
         </tr>
-      @endforeach
+        <tr>
+            <?php
+            for($i = 1; $i <= 31; $i++) {
+            ?>
+            <th>{{ $i }}</th>
+            <?php
+            }
+            ?>
+        </tr>
+        @foreach ($rekapPresence as $rp)
+            <tr>
+                <td>{{ $rp->employee_id }}</td>
+                <td>{{ $rp->fullname }}</td>
+
+                <?php
+                $totalPresence = 0;
+                $totalTerlambat = 0;
+                for($i = 1; $i <= 31; $i++) {
+                    $tgl = "tgl_" . $i;
+
+                    if(empty($rp->tgl)) {
+                        $presence = ['', ''];
+                        $totalPresence += 0;
+                    } else {
+                        $presence = explode('-', $rp->tgl);
+                        $totalPresence += 1;
+
+                        if($presence[0] >= "07:00:00") {
+                            $totalTerlambat += 1;
+                        }
+                    }
+                ?>
+
+                <td>
+                    <span style="{{ $presence[0] >= "07:00:00" ? "red" : "" }}">{{ $presence[0] }}</span><br>
+                    <span style="{{ $presence[1] <= "17:00:00" ? "red" : "" }}">{{ $presence[0] }}</span><br>
+                </td>
+                <?php
+                }
+                ?>
+                <td>{{ $totalPresence }}</td>
+                <td>{{ $totalTerlambat }}</td>
+            </tr>
+        @endforeach
     </table>
 
     <table width="100%" style="margin-top: 100px">

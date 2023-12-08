@@ -11,3 +11,4 @@
  @stack('modal-employee-script')
  @stack('monitor-presence-script')
  @stack('presence-map-script')
+ @stack('pengajuan-izin-script')
