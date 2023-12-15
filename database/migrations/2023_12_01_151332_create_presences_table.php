@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('latitude');
             $table->string('longitude');
             $table->date('presence_at');
-            $table->string('employee_id');
+            $table->unsignedBigInteger('employee_id');
             $table->foreign('employee_id')->references('id_employee')->on('employees')->onDelete('cascade');
             $table->timestamps();
         });

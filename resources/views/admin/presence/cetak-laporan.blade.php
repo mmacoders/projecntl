@@ -57,13 +57,13 @@
     <table style="width: 100%">
         <tr>
             <td style="width: 30px">
-                <img src="{{ asset('assets/img/icon/192x192.png') }}" alt="" width="100" height="100">
+                <img src="{{ asset('assets/img/telkom.png') }}" alt="" width="180" height="90">
             </td>
             <td>
               <h3>
                 LAPORAN PRESENSI KARYAWAN<br>
                 PERIODE {{ strtoupper($months[$month]) }} {{ $year }}<br>
-                PT. KOPERASI INTERNET NETWORK GORONTALO
+                PT. TELKOM AKSES OFFICE GORONTALO
               </h3>
             </td>
         </tr>
@@ -72,23 +72,23 @@
     <table class="table-data-employee">
       <tr>
         <td rowspan="4">
-          <img src="{{ asset('storage/uploads/employee/' . $employee->photo) }}" alt="" width="200" height="200">
+          <img src="{{ asset('storage/uploads/employee/' . $employee->photo) }}" alt="" width="150" height="150">
         </td>
-      </tr>
-      <tr>
-        <td>ID Karyawan</td>
-        <td>:</td>
-        <td>{{ $employee->id_employee }}</td>
       </tr>
       <tr>
         <td>Nama</td>
         <td>:</td>
         <td>{{ $employee->fullname }}</td>
       </tr>
-    <tr>
+      <tr>
         <td>Jabatan</td>
         <td>:</td>
         <td>{{ $employee->position }}</td>
+      </tr>
+      <tr>
+        <td>Tipe Magang</td>
+        <td>:</td>
+        <td>{{ $employee->tipemagang }}</td>
       </tr>
     </table>
 
@@ -97,7 +97,7 @@
         <th>No</th>
         <th>Tanggal</th>
         <th>Presensi masuk</th>
-        <th>Preensi pulang</th>
+        <th>Presensi pulang</th>
         <th>Keterangan</th>
       </tr>
       @foreach ($presence as $p)
@@ -122,9 +122,9 @@
         <td style="text-align: right">Gorontalo, {{ date('d-m-Y') }}</td>
       </tr>
       <tr>
-        <td style="text-align: right; vertical-align:bottom" height="100px">
-          <u>Name</u><br>
-          <i><b>Jabatan</b></i>
+        <td style="text-align: right; vertical-align:bottom" height="150px">
+          <u>{{ $employee->fullname }}</u><br>
+          <i><b>{{ $employee->position }}</b></i>
         </td>
       </tr>
     </table>

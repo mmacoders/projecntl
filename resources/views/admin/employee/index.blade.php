@@ -6,7 +6,7 @@
           <div class="row g-2 align-items-center">
             <div class="col">
               <h2 class="page-title">
-                Data Karyawan
+                Data Karyawan Magang
               </h2>
             </div>
           </div>
@@ -67,17 +67,16 @@
                       <thead>
                         <tr>
                           <th>No</th>
-                          <th>ID</th>
                           <th>Nama</th>
                           <th>Jabatan</th>
-                          <th class="w-1"></th>
+                          <th>Tipe Magang</th>
+                          <th class="text-center">Action</th>
                         </tr>
                       </thead>
                       <tbody>
                         @foreach ($employee as $e)
                         <tr>
                             <td>{{ $loop->iteration + $employee->firstItem() - 1 }}</td>
-                            <td>{{ $e->id_employee }}</td>
                             <td>
                                 <div class="d-flex py-1 align-items-center">
                                   @if (empty($e->photo))
@@ -93,7 +92,8 @@
                             <td class="text-secondary">
                                 {{ $e->position }}
                             </td>
-                            <td>
+                            <td>{{ $e->tipemagang}}</td>
+                            <td style="width:8%">
                               <div class="btn-list flex-nowrap">
                                 <a href="#" class="edit btn-primary btn btn-sm" idEmployee="{{ $e->id_employee }}" >
                                   <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-edit" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" /><path d="M16 5l3 3" /></svg>
@@ -137,12 +137,6 @@
               <div class="row">
                 <div class="col-lg-12">
                   <div class="mb-3">
-                    <label class="form-label">ID Karyawan</label>
-                    <input type="text" class="form-control" name="id_employee">
-                  </div>
-                </div>
-                <div class="col-lg-12">
-                  <div class="mb-3">
                     <label class="form-label">Username</label>
                     <input type="text" class="form-control" name="username">
                   </div>
@@ -157,6 +151,12 @@
                   <div class="mb-3">
                     <label class="form-label">Jabatan</label>
                     <input type="text" class="form-control" name="position">
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="mb-3">
+                    <label class="form-label">Tipe Magang</label>
+                    <input type="text" class="form-control" name="tipemagang">
                   </div>
                 </div>
                 <div class="col-lg-12">

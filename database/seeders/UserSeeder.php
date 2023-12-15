@@ -32,14 +32,14 @@ class UserSeeder extends Seeder
         $admin = Employee::create([
             'id_employee' => '122',
             'username' => 'admin',
-            'fullname' => 'Admin KOPINETGO',
+            'fullname' => 'Administrator',
             'password' => bcrypt('12345678'),
             'role' => 'admin'
         ]);
 
         $user = Employee::create([
             'id_employee' => '123',
-            'username' => 'loremipsum',
+            'username' => 'user',
             'fullname' => 'mas lorem ipsum',
             'position' => 'Software Engineering',
             'gender' => 'l',

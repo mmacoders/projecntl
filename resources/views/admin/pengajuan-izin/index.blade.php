@@ -86,9 +86,9 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Tanggal</th>
-                                                <th>ID Karyawan</th>
                                                 <th>Nama</th>
                                                 <th>Jabatan</th>
+                                                <th>Tipe Magang</th>
                                                 <th>Status</th>
                                                 <th>Keterangan</th>
                                                 <th>Status Approve</th>

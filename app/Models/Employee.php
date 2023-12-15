@@ -14,7 +14,6 @@ class Employee extends Authenticatable
     protected $primaryKey = 'id_employee';
 
     protected $fillable = [
-        'id_employee',
         'username',
         'password',
         'fullname',

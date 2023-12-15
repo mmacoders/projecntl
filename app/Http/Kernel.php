@@ -70,4 +70,10 @@ class Kernel extends HttpKernel
         'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
         'authRole' => AuthRole::class,
     ];
+
+    protected $routeMiddleware = [
+        // ...
+        'check.profile.owner' => \App\Http\Middleware\CheckProfileOwner::class,
+    ];
+    
 }

@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Models\Employee;
+use App\Models\Presences;
+use App\Models\PengajuanIzin;
 
 class PresenceEmployeeController extends Controller
 {
@@ -176,5 +180,44 @@ class PresenceEmployeeController extends Controller
         ->get();
 
         return view('admin.presence.cetak-rekap-presence', compact('month', 'year', 'months', 'rekapPresence'));
+    }
+
+    public function export()
+    {
+        // $presence = Employee::query()
+        //     ->select('employees.fullname', 'employees.position', 'employees.tipemagang')
+        //     ->join('presences', 'presences_employee_id', '=', 'employees.id')
+        //     ->join('pengajuan_izin', 'pengajuan_izin.employee_id', '=', 'employees.id')
+        //     ->get();
+
+        $result = DB::table('employees')
+        ->join('presences', function ($join) {
+            $join->on('employees.id_employee', '=', 'presences.employee_id');
+        })
+        ->leftJoin('pengajuan_izin', function ($join) {
+            $join->on('employees.id_employee', '=', 'pengajuan_izin.employee_id');
+        })
+        ->select([
+            'employees.fullname',
+            'employees.position',
+            'employees.tipemagang',
+            'presences.check_in',
+            'presences.check_out',
+            'presences.latitude',
+            'pengajuan_izin.izin_at',
+            'pengajuan_izin.status',
+            'pengajuan_izin.keterangan',
+        ])
+        ->get();
+    
+        Excel::create('Data Karyawan', function($excel) use ($result) {
+            $excel->sheet('Data Karyawan', function($sheet) use ($result) {
+                $sheet->fromArray($result);
+            });
+        })->save('data-karyawan.xlsx');
+
+        return redirect()->back()->with('success', 'Data berhasil diekspor ke Excel');
+        // return view('admin.presence.laporan', compact('presences', 'export'));
+        
     }
 }

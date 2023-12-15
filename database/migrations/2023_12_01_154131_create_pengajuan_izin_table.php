@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('status', 10);
             $table->string('keterangan');
             $table->string('status_approved', 10)->default(0);
-            $table->string('employee_id');
+            $table->unsignedBigInteger('employee_id');
             $table->foreign('employee_id')->references('id_employee')->on('employees')->onDelete('cascade');
             $table->timestamps();
         });

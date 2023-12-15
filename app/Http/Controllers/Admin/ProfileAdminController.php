@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Profile;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -18,7 +18,7 @@ class ProfileController extends Controller
         ->where('id_employee', $idEmployee)
         ->first();
 
-        return view('profile.edit', compact('employee'));
+        return view('admin.profile.edit', compact('employee'));
     }
 
     public function update(Request $request) {
@@ -55,7 +55,7 @@ class ProfileController extends Controller
 
         if($update) {
             if($request->hasFile('photo')) {
-                $folderPath = 'public/uploads/employee/';
+                $folderPath = 'public/uploads/profile';
                 $request->file('photo')->storePubliclyAs($folderPath, $photo);
             }
 

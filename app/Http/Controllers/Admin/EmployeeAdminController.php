@@ -28,45 +28,51 @@ class EmployeeAdminController extends Controller
     }
 
     public function store(Request $request) {
-        $idEmployee = $request->id_employee;
         $username = $request->username;
         $password = Hash::make('12345678');
         $fullname = $request->fullname;
         $position = $request->position;
+        $tipemagang = $request->tipemagang;
         $gender = $request->gender;
 
-        if($request->hasFile('photo')) {
-            $photo = $idEmployee . "." . $request->file('photo')->getClientOriginalExtension();
-        } else {
-            $photo = null;
-        }
-
         try {
+            // Cek apakah ada file yang diupload
+            if ($request->hasFile('photo')) {
+                // Validasi file dan berikan nama unik dengan timestamp
+                $photo = now()->timestamp . '.' . $request->file('photo')->getClientOriginalExtension();
+        
+                // Simpan file ke direktori yang ditentukan
+                $request->file('photo')->storeAs('public/uploads/employee/', $photo);
+            } else {
+                // Jika tidak ada file diupload, atur $photo menjadi null
+                $photo = null;
+            }
+        
+            // Data untuk disimpan ke database
             $data = [
-                'id_employee' => $idEmployee,
                 'username' => $username,
                 'password' => $password,
                 'fullname' => $fullname,
                 'position' => $position,
+                'tipemagang' => $tipemagang,
                 'gender' => $gender,
                 'photo' => $photo,
             ];
-
+        
+            // Simpan data ke database
             $save = DB::table('employees')->insert($data);
-
-            if($save) {
-                if($request->hasFile('photo')) {
-                    $folderPath = 'public/uploads/employee/';
-                    $request->file('photo')->storeAs($folderPath, $photo);
-                }
-
+        
+            if ($save) {
                 return redirect()->back()->with('success', 'Data karyawan berhasil ditambahkan');
+            } else {
+                throw new \Exception('Gagal menyimpan data ke database');
             }
-            
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Data karyawan gagal ditambahkan');
+            // Tangani kesalahan dan tampilkan pesan kesalahan
+            return redirect()->back()->with('error', 'Data karyawan gagal ditambahkan. ' . $e->getMessage());
         }
-    }
+    } 
+
 
     public function edit(Request $request) {
         $idEmployee = $request->idEmployee;
@@ -84,6 +90,7 @@ class EmployeeAdminController extends Controller
         $password = Hash::make('12345678');
         $fullname = $request->fullname;
         $position = $request->position;
+        $tipemagang = $request->tipemagang;
         $gender = $request->gender;
         $oldPhoto = $request->old_photo;
 
@@ -99,6 +106,7 @@ class EmployeeAdminController extends Controller
                 'password' => $password,
                 'fullname' => $fullname,
                 'position' => $position,
+                'tipemagang' => $tipemagang,
                 'gender' => $gender,
                 'photo' => $photo,
             ];

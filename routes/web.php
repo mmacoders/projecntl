@@ -32,8 +32,7 @@ Route::controller(LoginController::class)->group(function() {
 Route::middleware(['auth:employee'])->group(function() {
 
     Route::get('/redirectAuthenticatedUsers', [RedirectAuthenticatedUsersController::class, 'home']);
-
-    // Route::post('/logout', [LoginController::class, 'logout']);
+    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
     // Admin
     Route::middleware(['authRole:admin'])->group(function() {
@@ -55,6 +54,12 @@ Route::middleware(['auth:employee'])->group(function() {
             Route::post('/admin/presence/cetak-laporan', 'cetakLaporan');
             Route::get('/admin/presence/rekap', 'rekap')->name('rekap-presence-admin');
             Route::post('/admin/presence/cetak-rekap', 'cetakRekap');
+            Route::post('/admin/presence/export', 'export')->name('export-presence-admin');
+        });
+
+        Route::controller(ProfileAdminController::class)->group(function() {
+            Route::get('/admin/profile', 'edit')->name('admin.profile'); // remove middleware
+            Route::put('/admin/profile/{id_employee}', 'update')->name('admin.update'); // remove middleware
         });
 
         Route::controller(PengajuanIzinKaryawanController::class)->group(function() {
@@ -72,10 +77,10 @@ Route::middleware(['auth:employee'])->group(function() {
             Route::get('/presence/create', 'create')->name('presence.create');
             Route::post('/presence/store', 'store')->name('presence.store');
         });
-
+        
         Route::controller(ProfileController::class)->group(function() {
-            Route::get('/profile', 'edit')->name('profile');
-            Route::put('/profile/{id_employee}', 'update');
+            Route::get('/profile', 'edit')->name('profile'); // remove middleware
+            Route::put('/profile/{id_employee}', 'update')->name('update'); // remove middleware
         });
 
         Route::controller(HistoryController::class)->group(function() {

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PresenceController extends Controller
 {
@@ -88,5 +89,41 @@ class PresenceController extends Controller
                 echo 'error|Gagal melakukan absensi masuk, Silahkan hubungi admin';
             }
         }
+    }
+    public function export()
+    {
+        // Ambil data dari database
+        // $data = \App\Models\presences::whereDate('check_in', '>=', now())
+        //     ->whereDate('check_out', '<=', now())
+        //     ->get();
+
+            $data = DB::table('presences')
+            ->where('presence_at', $presenceAt)
+            ->where('employee_id', $idEmployee)
+            ->whereDate('check_in', '>=', now())
+            ->whereDate('check_out', '<=', now())
+            ->get();
+
+        // Buat instance dari Excel
+        $excel = Excel::create('Data Kehadiran', function($excel) use ($data) {
+
+            // Set header untuk file excel
+            $excel->sheet('Data Kehadiran', function($sheet) use ($data) {
+                $sheet->setHeader(['ID', 'Check In', 'Check Out', 'Tanggal Sekarang']);
+
+                // Set data untuk file excel
+                foreach ($data as $attendance) {
+                    $sheet->appendRow([
+                        $attendance->id,
+                        $attendance->check_in,
+                        $attendance->check_out,
+                        now(),
+                    ]);
+                }
+            });
+        });
+
+        // Download file excel
+        return $excel->download('xlsx');
     }
 }

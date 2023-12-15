@@ -55,6 +55,16 @@
                 </div>
                 <div class="item-menu text-center">
                     <div class="menu-icon">
+                        <a href="{{ route('logout') }}" class="warning" style="font-size: 40px;">
+                            <ion-icon name="log-out-outline"></ion-icon>
+                        </a>
+                    </div>
+                    <div class="menu-name">
+                        <span class="text-center">Logout</span>
+                    </div>
+                </div>
+                <!-- <div class="item-menu text-center">
+                    <div class="menu-icon">
                         <a href="" class="orange" style="font-size: 40px;">
                             <ion-icon name="location"></ion-icon>
                         </a>
@@ -62,7 +72,7 @@
                     <div class="menu-name">
                         Lokasi
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

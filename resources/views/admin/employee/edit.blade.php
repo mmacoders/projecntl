@@ -3,10 +3,7 @@
     @csrf
     <div class="row">
       <div class="col-lg-12">
-        <div class="mb-3">
-          <label class="form-label">ID Karyawan</label>
-          <input type="text" class="form-control" name="id_employee" value="{{ old('id_employee', $employee->id_employee) }}" disabled>
-        </div>
+        <input type="text" class="form-control" name="id_employee" value="{{ old('id_employee', $employee->id_employee) }}" disabled hidden>
       </div>
       <div class="col-lg-12">
         <div class="mb-3">
@@ -24,6 +21,12 @@
         <div class="mb-3">
           <label class="form-label">Jabatan</label>
           <input type="text" class="form-control" name="position" value="{{ old('position', $employee->position) }}">
+        </div>
+      </div>
+      <div class="col-lg-12">
+        <div class="mb-3">
+          <label class="form-label">Tipe Magang</label>
+          <input type="text" class="form-control" name="tipemagang" value="{{ old('tipemagang', $employee->tipemagang) }}">
         </div>
       </div>
       <div class="col-lg-12">

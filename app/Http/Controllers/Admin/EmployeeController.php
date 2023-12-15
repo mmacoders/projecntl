@@ -18,13 +18,11 @@ class EmployeeController extends Controller
     }
 
     public function store(Request $request) {
-        $idEmployee = $request->id_employee;
         $fullname = $request->fullname;
         $position = $request->position;
 
         try {
             $data = [
-                'id_employee' => $idEmployee,
                 'fullname' => $fullname,
                 'position' => $position
             ];
@@ -34,4 +32,5 @@ class EmployeeController extends Controller
             
         }
     }
+    
 }

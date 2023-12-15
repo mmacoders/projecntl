@@ -61,10 +61,9 @@
                 <img src="{{ asset('assets/img/icon/192x192.png') }}" alt="" width="100" height="100">
             </td>
             <td>
-              <h3>
-                REKAP PRESENSI KARYAWAN<br>
+                LAPORAN PRESENSI KARYAWAN><br>
                 PERIODE {{ strtoupper($months[$month]) }} {{ $year }}<br>
-                PT. KOPERASI INTERNET NETWORK GORONTALO
+                PT. TELKOM AKSES OFFICE GORONTALO
               </h3>
             </td>
         </tr>
@@ -72,7 +71,6 @@
 
     <table class="table-presence">
         <tr>
-            <th rowspan="2">ID Karyawan</th>
             <th rowspan="2">Nama</th>
             <th colspan="31">Tanggal</th>
             <th rowspan="2">Total Hadir</th>
@@ -140,4 +138,4 @@
 
 </body>
 
-</html>
+</html> )
